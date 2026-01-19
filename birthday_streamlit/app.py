@@ -234,4 +234,181 @@ h1, h2, h3, p {
 }
 </style>
 """, unsafe_allow_html=True)
+import streamlit as st
+from datetime import date
+import time
+
+# ---------------- PAGE CONFIG ----------------
+st.set_page_config(
+    page_title="Happy Birthday Kanchan 🎉",
+    page_icon="🎂",
+    layout="centered"
+)
+
+# ---------------- BIRTHDAY THEME BACKGROUND ----------------
+st.markdown("""
+<style>
+.stApp {
+    background: linear-gradient(
+        135deg,
+        #ffecd2,
+        #fcb69f,
+        #fbc2eb,
+        #a6c1ee
+    );
+    background-size: 400% 400%;
+    animation: bgMove 12s ease infinite;
+}
+
+@keyframes bgMove {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+
+h1, h2, h3, p {
+    text-align: center;
+    color: #ffffff;
+}
+
+.card {
+    background: rgba(255,255,255,0.25);
+    padding: 25px;
+    border-radius: 25px;
+    margin: 20px 0;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+}
+
+/* Cute animations */
+.glow {
+    animation: glow 2s infinite alternate;
+}
+@keyframes glow {
+    from { text-shadow: 0 0 8px #fff; }
+    to { text-shadow: 0 0 25px #ff9aa2; }
+}
+
+.float {
+    animation: float 3s ease-in-out infinite;
+}
+@keyframes float {
+    0% {transform: translateY(0);}
+    50% {transform: translateY(-10px);}
+    100% {transform: translateY(0);}
+}
+
+.signature {
+    animation: fade 2s infinite alternate;
+}
+@keyframes fade {
+    from {opacity: 0.6;}
+    to {opacity: 1;}
+}
+
+/* Sidebar birthday style */
+section[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #ff9a9e, #fad0c4);
+}
+</style>
+""", unsafe_allow_html=True)
+
+# ---------------- SIDEBAR NAVIGATION ----------------
+st.sidebar.title("🎀 Birthday Menu 🎀")
+
+page = st.sidebar.radio(
+    "Choose 🎉",
+    ["🎂 Birthday", "⏳ Countdown", "💌 Message"]
+)
+
+st.sidebar.markdown("---")
+st.sidebar.markdown("🎉 **Kanchan Turns 20**")
+st.sidebar.markdown("🎂 3 February")
+st.sidebar.markdown("✨ Celebration Mode")
+
+# ---------------- BIRTHDAY PAGE ----------------
+if page == "🎂 Birthday":
+    st.markdown("<h1 class='glow float'>🎂 Happy 20th Birthday Kanchan 🎂</h1>", unsafe_allow_html=True)
+    st.markdown("<h3>Today is all about smiles & celebration 🎉✨</h3>", unsafe_allow_html=True)
+
+    st.markdown("""
+    <div class="card">
+        <h2>🌟 A Very Special Day 🌟</h2>
+        <p>
+        May your day be filled with laughter, surprises,
+        colours and beautiful moments 🎀✨<br>
+        Keep shining and enjoying every second 🌈
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    try:
+        st.audio("birthday.mp3", loop=True)
+    except:
+        st.info("🎵 Add birthday.mp3 for background music")
+
+    with st.spinner("🎂 Getting the cake ready..."):
+        time.sleep(2)
+    st.success("🎉 Let the celebration begin!")
+
+# ---------------- COUNTDOWN ----------------
+elif page == "⏳ Countdown":
+    st.markdown("<h1 class='glow'>⏳ Birthday Countdown 🎈</h1>", unsafe_allow_html=True)
+
+    today = date.today()
+    birthday = date(today.year, 2, 3)
+    if today > birthday:
+        birthday = date(today.year + 1, 2, 3)
+
+    days_left = (birthday - today).days
+
+    st.markdown(f"""
+    <div class="card">
+        <h2>🎉 {days_left} Days To Go 🎉</h2>
+        <p>
+        The countdown to fun, cake and smiles has started 🎂✨
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+# ---------------- MESSAGE ----------------
+elif page == "💌 Message":
+    st.markdown("<h1 class='glow'>💌 A Cute Birthday Message 🎀</h1>", unsafe_allow_html=True)
+
+    choice = st.radio(
+        "Choose a message ✨",
+        ["👭 Best Friend", "🦋 Like Sister"]
+    )
+
+    if st.button("🎉 Show Message"):
+        st.balloons()
+
+        if choice == "👭 Best Friend":
+            st.markdown("""
+            <div class="card">
+                <h2>🌸 My Best Friend 🌸</h2>
+                <p>
+                You make every moment brighter and happier ✨<br>
+                Thank you for all the laughs, talks and memories 🎈<br>
+                Life feels more fun with you around 🌈
+                </p>
+                <h3 class="signature">— Your Best Friend Anuj 🎀</h3>
+            </div>
+            """, unsafe_allow_html=True)
+
+        else:
+            st.markdown("""
+            <div class="card">
+                <h2>🦋 Like My Sister 🦋</h2>
+                <p>
+                You are not just a friend,
+                you are family in every way 🌸<br>
+                A bond full of care, trust and endless smiles ✨
+                </p>
+                <h3 class="signature">— From Anuj 🌟</h3>
+            </div>
+            """, unsafe_allow_html=True)
+
+# ---------------- FOOTER ----------------
+st.markdown("<br><p style='text-align:center;'>🎂 Birthday vibes • Colours • Smiles 🎉</p>", unsafe_allow_html=True)
+
 
