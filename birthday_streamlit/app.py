@@ -1,6 +1,7 @@
 import streamlit as st
 import time
 import random
+from datetime import datetime
 
 # ---------------- PAGE CONFIG ----------------
 st.set_page_config(
@@ -18,19 +19,19 @@ st.markdown("""
     animation: bgMove 12s ease infinite;
 }
 @keyframes bgMove {
-    0% {background-position: 0% 50%;}
-    50% {background-position: 100% 50%;}
-    100% {background-position: 0% 50%;}
+    0% {background-position:0% 50%;}
+    50% {background-position:100% 50%;}
+    100% {background-position:0% 50%;}
 }
-h1, h2, h3, p {text-align:center; color:#ffffff;}
-.card {background: rgba(255,255,255,0.25); padding:25px; border-radius:25px; margin:20px 0; box-shadow: 0 12px 25px rgba(0,0,0,0.25);}
-.glow {animation: glow 2s infinite alternate;}
-@keyframes glow {from {text-shadow:0 0 8px #fff;} to {text-shadow:0 0 25px #ff9aa2;}}
-.float {animation: float 3s ease-in-out infinite;}
-@keyframes float {0% {transform:translateY(0);} 50% {transform:translateY(-10px);} 100% {transform:translateY(0);}}
-.signature {animation: fade 2s infinite alternate;}
-@keyframes fade {from {opacity:0.6;} to {opacity:1;}}
-section[data-testid="stSidebar"] {background: linear-gradient(180deg, #ffb6c1, #ffd1dc);}
+h1,h2,h3,p{text-align:center;color:#ffffff;}
+.card{background: rgba(255,255,255,0.25); padding:25px; border-radius:25px; margin:20px 0; box-shadow:0 12px 25px rgba(0,0,0,0.25);}
+.glow{animation:glow 2s infinite alternate;}
+@keyframes glow{from{text-shadow:0 0 8px #fff;}to{text-shadow:0 0 25px #ff9aa2;}}
+.float{animation:float 3s ease-in-out infinite;}
+@keyframes float{0%{transform:translateY(0);}50%{transform:translateY(-10px);}100%{transform:translateY(0);}}
+.signature{animation:fade 2s infinite alternate;}
+@keyframes fade{from{opacity:0.6;}to{opacity:1;}}
+section[data-testid="stSidebar"]{background: linear-gradient(180deg, #ffb6c1, #ffd1dc);}
 </style>
 """, unsafe_allow_html=True)
 
@@ -38,12 +39,12 @@ section[data-testid="stSidebar"] {background: linear-gradient(180deg, #ffb6c1, #
 st.sidebar.title("🎀 Birthday Menu 🎀")
 page = st.sidebar.radio(
     "Navigate 🎉",
-    ["🎂 Birthday", "💌 Special Message", "🎮 Fun Game"]
+    ["🎂 Birthday", "⏰ Timer Wall", "💌 Special Message", "🎮 Fun Game"]
 )
 st.sidebar.markdown("---")
 st.sidebar.markdown("🎉 **Kanchan Turns 20**")
 st.sidebar.markdown("🎂 3 February")
-st.sidebar.markdown("✨ Fun & Cute Surprises Inside ✨")
+st.sidebar.markdown("✨ Surprises & Fun Inside ✨")
 
 # ---------------- BIRTHDAY PAGE ----------------
 if page == "🎂 Birthday":
@@ -54,7 +55,7 @@ if page == "🎂 Birthday":
     <div class="card">
         <h2>🌟 A Special Day for You 🌟</h2>
         <p>
-        May this birthday be filled with laughter, sweet moments and unforgettable memories 🌸✨<br>
+        May this birthday be filled with laughter, sweet moments, and unforgettable memories 🌸✨<br>
         You light up every room with your smile 🎀<br>
         Keep shining, dreaming & enjoying life 🌈
         </p>
@@ -62,14 +63,35 @@ if page == "🎂 Birthday":
     """, unsafe_allow_html=True)
 
     try:
-        st.audio("birthday.mp3", loop=True)
+        st.audio("birthday.mp3", format="audio/mp3", start_time=0)
     except:
-        st.info("🎵 Add birthday.mp3 (Happy Birthday melody) to play music")
+        st.info("🎵 Add birthday.mp3 (Happy Birthday melody) in root folder to play music")
+
+# ---------------- TIMER WALL ----------------
+elif page == "⏰ Timer Wall":
+    st.markdown("<h1 class='glow'>⏰ Countdown to Birthday 🎉</h1>", unsafe_allow_html=True)
+    birthday = datetime(datetime.now().year, 2, 3, 0, 0, 0)
+    if datetime.now() > birthday:
+        birthday = datetime(datetime.now().year + 1, 2, 3, 0, 0, 0)
+    
+    diff = birthday - datetime.now()
+    days, seconds = diff.days, diff.seconds
+    hours = seconds // 3600
+    minutes = (seconds % 3600) // 60
+    seconds = seconds % 60
+
+    st.markdown(f"""
+    <div class="card">
+        <h2>🎉 Time Left 🎉</h2>
+        <p>
+        {days} Days : {hours} Hours : {minutes} Minutes : {seconds} Seconds 🌟
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
 
 # ---------------- SPECIAL COMBINED MESSAGE ----------------
 elif page == "💌 Special Message":
     st.markdown("<h1 class='glow'>💌 A Cute Birthday Message 🌸✨</h1>", unsafe_allow_html=True)
-
     if st.button("🎉 Show Message"):
         st.balloons()
         st.markdown("""
@@ -87,28 +109,29 @@ elif page == "💌 Special Message":
 
 # ---------------- FUN GAME ----------------
 elif page == "🎮 Fun Game":
-    st.markdown("<h1 class='glow'>🎮 Birthday Fun Game 🎀</h1>", unsafe_allow_html=True)
-    st.markdown("<h3>Guess the Lucky Number (1 to 5) 🎉</h3>", unsafe_allow_html=True)
+    st.markdown("<h1 class='glow'>🎮 Birthday Jump Game 🎀</h1>", unsafe_allow_html=True)
+    st.markdown("<h3>Click the Jump Button 5 times to reach the cake 🎉</h3>", unsafe_allow_html=True)
 
-    lucky_number = random.randint(1,5)
-    guess = st.number_input("Enter your guess:", min_value=1, max_value=5, step=1)
+    if 'score' not in st.session_state:
+        st.session_state.score = 0
 
-    if st.button("🎯 Guess!"):
-        if guess == lucky_number:
+    if st.button("🕹️ Jump!"):
+        st.session_state.score += 1
+        st.success(f"You jumped! Total jumps: {st.session_state.score}/5 🎈")
+        if st.session_state.score >= 5:
             st.balloons()
-            st.success("🎉 You Won! 🎉")
+            st.success("🎂 You reached the cake! 🎉")
             st.markdown("""
             <div class="card">
-                <h2>✨ Special Surprise Message ✨</h2>
+                <h2>✨ Surprise Message ✨</h2>
                 <p>
-                Yay! You are amazing 😄🎀<br>
-                Kanchan, may your birthday be as fun, bright, and magical as this game 🌸✨<br>
-                Keep laughing, smiling and enjoying every moment 🌈
+                Hurray! You won the birthday game 😄🎀<br>
+                Kanchan, may your birthday be as fun, magical, and sweet as this game 🌸✨<br>
+                Keep laughing, smiling, and enjoying every moment 🌈
                 </p>
             </div>
             """, unsafe_allow_html=True)
-        else:
-            st.error(f"Oops! The lucky number was {lucky_number} 😅 Try again!")
+            st.session_state.score = 0  # reset after winning
 
 # ---------------- FOOTER ----------------
 st.markdown("<br><p style='text-align:center;'>🎂 Birthday vibes • Colours • Smiles • Love 🌟✨</p>", unsafe_allow_html=True)
