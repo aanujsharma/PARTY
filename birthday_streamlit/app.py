@@ -169,3 +169,69 @@ elif page == "💌 Message":
 
 # ---------------- FOOTER ----------------
 st.markdown("<br><p style='text-align:center;'>🎂 Made with smiles, memories & good vibes ✨</p>", unsafe_allow_html=True)
+st.markdown("""
+<style>
+/* REAL BACKGROUND FIX */
+.stApp {
+    background: linear-gradient(
+        135deg,
+        #ffdde1,
+        #ee9ca7,
+        #fbc2eb,
+        #a18cd1
+    );
+    background-size: 400% 400%;
+    animation: gradientBG 12s ease infinite;
+}
+
+/* Gradient animation */
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+h1, h2, h3, p {
+    text-align: center;
+    color: white;
+}
+
+/* Card design */
+.card {
+    background: rgba(255,255,255,0.22);
+    padding: 25px;
+    border-radius: 22px;
+    margin: 20px 0;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+}
+
+/* Glow animation */
+.glow {
+    animation: glow 2s infinite alternate;
+}
+@keyframes glow {
+    from { text-shadow: 0 0 10px #fff; }
+    to { text-shadow: 0 0 30px #ffd1dc; }
+}
+
+/* Floating effect */
+.float {
+    animation: float 3s ease-in-out infinite;
+}
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Signature animation */
+.signature {
+    animation: fade 2s infinite alternate;
+}
+@keyframes fade {
+    from { opacity: 0.6; }
+    to { opacity: 1; }
+}
+</style>
+""", unsafe_allow_html=True)
+
