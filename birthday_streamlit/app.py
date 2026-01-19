@@ -59,29 +59,28 @@ section[data-testid="stSidebar"] {
 
 # ---------------- SIDEBAR NAVIGATION ----------------
 st.sidebar.title("🎀 Birthday Menu 🎀")
-
 page = st.sidebar.radio(
     "Navigate 🎉",
-    ["🎂 Birthday", "⏳ Countdown", "💌 Message"]
+    ["🎂 Birthday", "⏳ Countdown", "💌 Special Message"]
 )
 
 st.sidebar.markdown("---")
 st.sidebar.markdown("🎉 **Kanchan Turns 20**")
 st.sidebar.markdown("🎂 3 February")
-st.sidebar.markdown("✨ Celebrate with smiles & love ✨")
+st.sidebar.markdown("✨ A day to celebrate smiles & love ✨")
 
 # ---------------- BIRTHDAY PAGE ----------------
 if page == "🎂 Birthday":
     st.markdown("<h1 class='glow float'>🎂 Happy 20th Birthday Kanchan 🎂</h1>", unsafe_allow_html=True)
-    st.markdown("<h3>Today is a day full of smiles, surprises & sweet vibes 🎉✨</h3>", unsafe_allow_html=True)
+    st.markdown("<h3>Today is all about smiles, surprises & love 🎉✨</h3>", unsafe_allow_html=True)
 
     st.markdown("""
     <div class="card">
-        <h2>🌟 A Very Special Day 🌟</h2>
+        <h2>🌟 A Special Day for You 🌟</h2>
         <p>
-        May this birthday bring you countless happy moments 🌸<br>
-        Your laughter is like music to everyone around 🎀<br>
-        Keep sparkling, dreaming & loving life ✨
+        May this birthday be filled with laughter, sweet moments and unforgettable memories 🌸✨<br>
+        You light up every room with your smile 🎀<br>
+        Keep shining, dreaming & enjoying life 🌈
         </p>
     </div>
     """, unsafe_allow_html=True)
@@ -89,9 +88,9 @@ if page == "🎂 Birthday":
     try:
         st.audio("birthday.mp3", loop=True)
     except:
-        st.info("🎵 Add birthday.mp3 for soft romantic music")
+        st.info("🎵 Add birthday.mp3 for soft music")
 
-    with st.spinner("🎂 Preparing your cake & wishes..."):
+    with st.spinner("🎂 Preparing cake & wishes..."):
         time.sleep(2)
     st.success("🎉 Let the fun & love begin!")
 
@@ -109,64 +108,29 @@ elif page == "⏳ Countdown":
     st.markdown(f"""
     <div class="card">
         <h2>🎉 {days_left} Days To Go 🎉</h2>
-        <p>
-        The countdown to cake, smiles & sweet memories has started 🌟
-        </p>
+        <p>The countdown to smiles, cake & fun has started 🌟✨</p>
     </div>
     """, unsafe_allow_html=True)
 
-# ---------------- MESSAGE ----------------
-elif page == "💌 Message":
-    st.markdown("<h1 class='glow'>💌 Romantic Birthday Message 🌸</h1>", unsafe_allow_html=True)
-
-    choice = st.radio(
-        "Choose message type ✨",
-        ["👭 Best Friend", "🦋 Like Sister", "🌟 Romantic Note"]
-    )
+# ---------------- SPECIAL COMBINED MESSAGE ----------------
+elif page == "💌 Special Message":
+    st.markdown("<h1 class='glow'>💌 A Special Birthday Message 🌸✨</h1>", unsafe_allow_html=True)
 
     if st.button("🎉 Show Message"):
         st.balloons()
-
-        if choice == "👭 Best Friend":
-            st.markdown("""
-            <div class="card">
-                <h2>🌸 My Best Friend 🌸</h2>
-                <p>
-                You make every moment brighter ✨<br>
-                Thank you for the laughter, the talks, and the crazy memories 🎀<br>
-                Life is happier with you around 🌈
-                </p>
-                <h3 class="signature">— Your Best Friend Anuj 🎉</h3>
-            </div>
-            """, unsafe_allow_html=True)
-
-        elif choice == "🦋 Like Sister":
-            st.markdown("""
-            <div class="card">
-                <h2>🦋 Like My Sister 🦋</h2>
-                <p>
-                You are my family away from home 🌸<br>
-                A bond full of trust, care and endless smiles ✨<br>
-                Grateful for you always 🎀
-                </p>
-                <h3 class="signature">— From Anuj 🌟</h3>
-            </div>
-            """, unsafe_allow_html=True)
-
-        else:
-            st.markdown("""
-            <div class="card">
-                <h2>🌟 Romantic Note 🌟</h2>
-                <p>
-                Kanchan, your smile lights up my days 🌸<br>
-                Every moment with you feels magical 🎀<br>
-                I hope this year brings dreams, laughter, and endless happiness ✨<br>
-                You are a star in my sky 🌟
-                </p>
-                <h3 class="signature">— From Anuj 🎉</h3>
-            </div>
-            """, unsafe_allow_html=True)
+        st.markdown("""
+        <div class="card">
+            <h2>🌟 To My Favorite Person 🌟</h2>
+            <p>
+            Kanchan, you are not just my best friend, you are like family 🦋✨<br>
+            Every moment with you is magical, full of laughter, warmth and joy 🎀🌸<br>
+            I hope your 20th year brings endless smiles, dreams coming true, and happiness in every corner 🌈🌟<br>
+            Keep being amazing, shining and lovely 💫
+            </p>
+            <h3 class="signature">— Always Yours, Anuj 🎉✨</h3>
+        </div>
+        """, unsafe_allow_html=True)
 
 # ---------------- FOOTER ----------------
-st.markdown("<br><p style='text-align:center;'>🎂 Birthday vibes • Colours • Smiles • Love ✨</p>", unsafe_allow_html=True)
+st.markdown("<br><p style='text-align:center;'>🎂 Birthday vibes • Colours • Smiles • Love 🌟✨</p>", unsafe_allow_html=True)
 
