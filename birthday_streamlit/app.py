@@ -9,84 +9,97 @@ st.set_page_config(
     layout="centered"
 )
 
-# ---------------- CUSTOM CSS ----------------
+# ---------------- BACKGROUND + CUTE ANIMATION CSS ----------------
 st.markdown("""
 <style>
 .main {
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb);
+    background: url("https://i.imgur.com/8YqGkYF.gif");
+    background-size: cover;
+    background-position: center;
 }
 h1, h2, h3, p {
     text-align: center;
     color: white;
 }
+
 .card {
-    background: rgba(255,255,255,0.18);
+    background: rgba(255,255,255,0.22);
     padding: 25px;
     border-radius: 22px;
     margin: 20px 0;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.3);
 }
+
 .glow {
     animation: glow 2s infinite alternate;
 }
 @keyframes glow {
     from { text-shadow: 0 0 10px #fff; }
-    to { text-shadow: 0 0 30px #ff4081; }
+    to { text-shadow: 0 0 30px #ffd1dc; }
 }
+
+.float {
+    animation: float 3s ease-in-out infinite;
+}
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
 .signature {
     animation: fade 2s infinite alternate;
 }
 @keyframes fade {
-    from { opacity: 0.5; }
+    from { opacity: 0.6; }
     to { opacity: 1; }
 }
 </style>
 """, unsafe_allow_html=True)
 
-# ---------------- SIDEBAR (≡ NAVIGATION) ----------------
+# ---------------- SIDEBAR NAVIGATION ----------------
 st.sidebar.title("🎀 Birthday Menu")
 page = st.sidebar.radio(
     "Navigate",
-    ["🎂 Home", "📸 Memories", "⏳ Countdown", "🎁 Surprise"]
+    ["🎂 Home", "📸 Memories", "⏳ Countdown", "💌 Message"]
 )
 
 st.sidebar.markdown("---")
-st.sidebar.markdown("💖 **For Kanchan**")
+st.sidebar.markdown("🌸 **For Kanchan**")
 st.sidebar.markdown("🎉 20th Birthday")
 st.sidebar.markdown("📅 3 February")
 
 # ---------------- HOME ----------------
 if page == "🎂 Home":
-    st.markdown("<h1 class='glow'>🎂 Happy 20th Birthday Kanchan 🎂</h1>", unsafe_allow_html=True)
-    st.markdown("<h3>3rd February – A very special day 💕</h3>", unsafe_allow_html=True)
+    st.markdown("<h1 class='glow float'>🎂 Happy 20th Birthday Kanchan 🎂</h1>", unsafe_allow_html=True)
+    st.markdown("<h3>3rd February – A day full of smiles ✨</h3>", unsafe_allow_html=True)
 
     st.markdown("""
     <div class="card">
-        <h2>✨ 20 Years of Awesomeness ✨</h2>
+        <h2>🌟 20 Years of Happiness 🌟</h2>
         <p>
-        May your life be filled with happiness, love, success and smiles.<br>
-        Keep shining always 🌟
+        You bring positivity, laughter and sunshine wherever you go 🌸<br>
+        May every day be as bright as your smile ✨
         </p>
     </div>
     """, unsafe_allow_html=True)
 
-    # Music (optional)
     try:
         st.audio("birthday.mp3", loop=True)
     except:
-        st.info("🎵 Add birthday.mp3 to enable music")
+        st.info("🎵 Add birthday.mp3 for background music")
 
-    with st.spinner("🎂 Preparing the cake..."):
+    with st.spinner("🎂 Decorating the cake..."):
         time.sleep(2)
-    st.success("🎉 Cake is ready!")
+    st.success("🎉 Cake is ready to celebrate!")
 
 # ---------------- MEMORIES ----------------
 elif page == "📸 Memories":
-    st.markdown("<h1 class='glow'>📸 Beautiful Memories</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 class='glow'>📸 Sweet Memories</h1>", unsafe_allow_html=True)
 
     st.markdown("""
     <div class="card">
-        <p>Some moments that will always stay close to the heart 💖</p>
+        <p>Moments that always bring a smile 🌼✨</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -104,7 +117,6 @@ elif page == "⏳ Countdown":
 
     today = date.today()
     birthday = date(today.year, 2, 3)
-
     if today > birthday:
         birthday = date(today.year + 1, 2, 3)
 
@@ -113,33 +125,47 @@ elif page == "⏳ Countdown":
     st.markdown(f"""
     <div class="card">
         <h2>🎉 {days_left} Days To Go 🎉</h2>
-        <p>The big day is almost here 💖</p>
+        <p>The celebration is getting closer 🌈</p>
     </div>
     """, unsafe_allow_html=True)
 
-# ---------------- SURPRISE ----------------
-elif page == "🎁 Surprise":
-    st.markdown("<h1 class='glow'>🎁 Special Surprise</h1>", unsafe_allow_html=True)
+# ---------------- MESSAGE OPTION ----------------
+elif page == "💌 Message":
+    st.markdown("<h1 class='glow'>💌 A Special Message</h1>", unsafe_allow_html=True)
 
-    st.markdown("""
-    <div class="card">
-        <h3>Click the button below 🎈</h3>
-    </div>
-    """, unsafe_allow_html=True)
+    choice = st.radio(
+        "Choose message type 🌸",
+        ["👭 Best Friend", "🦋 Like Sister"]
+    )
 
-    if st.button("🎉 Open Surprise"):
+    if st.button("✨ Show Message"):
         st.balloons()
-        st.markdown("""
-        <div class="card">
-            <h2>💖 Dear Kanchan 💖</h2>
-            <p>
-            On your 20th birthday, I wish you endless happiness,
-            success and beautiful moments.<br>
-            You deserve the best always ✨
-            </p>
-            <h3 class="signature">— From Anuj 💌</h3>
-        </div>
-        """, unsafe_allow_html=True)
+
+        if choice == "👭 Best Friend":
+            st.markdown("""
+            <div class="card">
+                <h2>🌸 My Best Friend 🌸</h2>
+                <p>
+                You are my constant laughter,
+                my comfort zone and my favorite person to talk to ✨<br>
+                Life feels lighter with you around 🌈
+                </p>
+                <h3 class="signature">— Your Best Friend Anuj 🎀</h3>
+            </div>
+            """, unsafe_allow_html=True)
+
+        else:
+            st.markdown("""
+            <div class="card">
+                <h2>🦋 Like My Sister 🦋</h2>
+                <p>
+                You are not just a friend,
+                you are someone I trust like family 🌸<br>
+                A bond full of care, support and endless smiles ✨
+                </p>
+                <h3 class="signature">— From Anuj 🌟</h3>
+            </div>
+            """, unsafe_allow_html=True)
 
 # ---------------- FOOTER ----------------
-st.markdown("<br><p style='text-align:center;'>🎂 Made with ❤️ using Streamlit 🎂</p>", unsafe_allow_html=True)
+st.markdown("<br><p style='text-align:center;'>🎂 Made with smiles, memories & good vibes ✨</p>", unsafe_allow_html=True)
